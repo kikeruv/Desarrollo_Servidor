@@ -1,0 +1,47 @@
+# Descripcion:
+Esta tarea es bascame como si fueramos un itermediario entre una API de noticias y el usuraio que esta en busca de alguna noticia
+y que nosotro solo validamos que la api en realidad esta pasandonos esa informacion para mostrarsela al ususario como un json.
+
+# Se usaron estas tecnologias para este proyecto:
+Node
+Npm
+Express
+Axios
+Dotenv
+Nodemon
+
+# Comandos que se utilizaron para la tarea:
+## Con este comando iniziamos un projecto Node.js y eso nos genera un package.json
+npm init
+## Con este comando instalamos las diferentes dependencias que utilizamos para produccion 
+npm i express nodemon axios dotenv
+## Con este comando instalamos las diferentes dependencias para desarrollo
+npm install -D typescript ts-node nodemon @types/node @types/express
+## Con este comando solo creamos un archivo tsconfig.json
+npx tsc --init
+
+# Cambios que hice en el package.json dentro del script:
+"dev": "nodemon src/index.ts",
+"build": "tsc",
+"start": "dist/index.js",
+
+#Configuracion del tsconfig.json:
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true
+  }
+}
