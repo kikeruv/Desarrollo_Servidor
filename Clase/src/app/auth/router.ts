@@ -1,0 +1,4 @@
+import {Router} from "express";
+import { login , signup } from "./controller";
+
+const router = Router();
