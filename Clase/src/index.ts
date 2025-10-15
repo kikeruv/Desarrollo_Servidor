@@ -12,11 +12,6 @@ import { dbConnect } from './database/index';
 // Importamos los rauters de app ya que contiene todos los rauters
 import routes from './app/routes';
 
-// Importamos todo lo de swagger 
-import swaggerJsDoc from 'swagger-jsdoc';
-import { setup, serve } from 'swagger-ui-express';
-import swaggerOptions from '../swagger.config';
-
 // Importamos las carpetas de archivos
 import { ejemplo } from './app/ejemplo2/ejemplo';
 import { index } from './app/ejemplo1';
@@ -50,10 +45,6 @@ console.log("Database: ", database);
     ]
   }); 
 });
-
-// es la configuracion de la ruta.
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/swagger', serve, setup(swaggerDocs));
 
 // Esto conecta y crea el servidor.
 dbConnect().then(() => {
