@@ -1,4 +1,4 @@
-import {Reuquest, Response} from "express";
+import {Request, Response} from "express";
 
 export function login (req: Request, res: Response){
     console.log('Login: ', req.body);

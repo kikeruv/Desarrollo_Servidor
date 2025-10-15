@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        // "rootDir": "src", se quita temporalmente por agregar el swagger.config.ts
+        "outDir": "dist",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "strict": true
+    }
+}
