@@ -49,5 +49,6 @@ const filters = (req: Request, file: Express.Multer.File, cb: FileFilterCallback
 */
 }
 export const uploadMiddleware = multer({
-    storage
+    storage,
+    fileFilter: filters
 });
