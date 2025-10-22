@@ -9,3 +9,7 @@ export function uploadProfilePic( req: Request, res: Response){
     res.send('function uploadProfile');
     console.log('Imagen cargada');
 }
+
+export function showUploadForm(req:Request, res:Response){
+    res.render('upload');
+}

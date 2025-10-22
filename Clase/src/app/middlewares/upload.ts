@@ -1,7 +1,13 @@
 import multer, {FileFilterCallback, Multer, diskStorage} from 'multer';
 import { Request } from 'express';
 
-const  validExtensions = ['jpg', 'jpg', 'png'];
+// const  validExtensions = ['jpg', 'jpg', 'png'];
+
+const validExtensions = {
+    image: ['jpg', 'jpg', 'png'],
+    document: ['doc', 'pdf', 'docs']
+
+}
 
 // storage = multerStorage
 const storage = diskStorage({
@@ -15,10 +21,17 @@ const storage = diskStorage({
     }
 });
 const filters = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
-    console.log(req, file, cb);
+    const extension = file.originalname.split('').pop();
+    // const acceptFile = validExtensions.image.includes(extension?.toLowerCase()!);
+    let acceptFile = true;
+    if(req.path.includes('Profile')){
+        acceptFile = validExtensions.image.includes(extension?.toLowerCase()!);
+    }else if(req.path.includes('Document')){
+        acceptFile = validExtensions.document.includes(extension?.toLowerCase()!);
+    }
 
-    const acceptFile = file.mimetype.startsWith('image');
     cb(null, acceptFile);
+
     
 /*   Ejemplo 1
     const extension = file.originalname.split('.').pop();
