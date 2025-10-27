@@ -5,6 +5,9 @@ import { engine } from 'express-handlebars';
 
 dotenv.config();
 
+import {Server} from 'http'
+import {Server as SocketServer} from 'socket.io'
+
 // Importamos todo esto para la base de datos
 import database from '../database.json';
 import { dbConnect } from './database/index';
@@ -15,6 +18,8 @@ import routes from './app/routes';
 // Importamos las carpetas de archivos
 import { ejemplo } from './app/ejemplo2/ejemplo';
 import { index } from './app/ejemplo1';
+
+import  SocketIo  from 'socket.io';
 
 const PORT = process.env.PORT || 3000;
 
@@ -48,9 +53,20 @@ console.log("Database: ", database);
 
 // Esto conecta y crea el servidor.
 dbConnect().then(() => {
-  app.listen(PORT, () => {
+  const server: Server = app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
   });
+
+const io = new SocketServer(server, {
+  cors:{
+    origin: '*'
+  }
+});
+
+io.on('connection', (socket) => {
+  console.log('Se creo una nueva conexion')
+})
+
 }).catch(() => {
   console.log('Error al conectarse a la base de datos')
 })
