@@ -19,8 +19,6 @@ import routes from './app/routes';
 import { ejemplo } from './app/ejemplo2/ejemplo';
 import { index } from './app/ejemplo1';
 
-import  SocketIo  from 'socket.io';
-
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -51,21 +49,43 @@ console.log("Database: ", database);
   }); 
 });
 
-// Esto conecta y crea el servidor.
+// Esto conecta y crea el servidor. Pero tambien creo todo lo relacionado a Sockets
 dbConnect().then(() => {
   const server: Server = app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
   });
 
-const io = new SocketServer(server, {
-  cors:{
-    origin: '*'
-  }
-});
+  const io = new SocketServer(server, {
+    cors:{
+      origin: '*'
+    }
+  });
 
-io.on('connection', (socket) => {
-  console.log('Se creo una nueva conexion')
-})
+  io.on('connection', (socket) => {
+    console.log('Se creo una nueva conexion')
+
+    socket.emit('confirmacion')
+    /* // Este es un ejmeplo de un boton
+    socket.on('buttonClick', (data) => {
+      console.log('el usuario hizo click', data)
+    })
+    */
+
+    socket.on('messegeSent', (data) =>{
+      //socket.broadcast.emit('messegeReceived', data);
+      io.emit('messegeRecived', data);
+      socket.data.usuario = {}
+    })
+
+    socket.on('disconect',() => {
+      console.log('Alguien salio')
+    })
+
+    socket.join('sala1')
+
+    io.to('sala1').emit('evento', )
+
+  });
 
 }).catch(() => {
   console.log('Error al conectarse a la base de datos')
