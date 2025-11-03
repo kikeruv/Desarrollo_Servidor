@@ -55,36 +55,86 @@ dbConnect().then(() => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
   });
 
-  const io = new SocketServer(server, {
-    cors:{
-      origin: '*'
-    }
+    const io = new SocketServer(server, {
+    cors: { origin: '*' },
   });
 
   io.on('connection', (socket) => {
-    console.log('Se creo una nueva conexion')
+    console.log('Se creó una nueva conexión');
 
-    socket.emit('confirmacion')
-    /* // Este es un ejmeplo de un boton
-    socket.on('buttonClick', (data) => {
-      console.log('el usuario hizo click', data)
-    })
-    */
+    // Confirmación inicial
+    socket.emit('confirmacion');
 
-    socket.on('messegeSent', (data) =>{
-      //socket.broadcast.emit('messegeReceived', data);
-      io.emit('messegeRecived', data);
-      socket.data.usuario = {}
-    })
+    // Guardar nombre y sala actual
+    socket.data.usuario = { nombre: null, sala: null };
 
-    socket.on('disconect',() => {
-      console.log('Alguien salio')
-    })
+    // Registrar nombre
+    socket.on('register', (nombre: string) => {
+      socket.data.usuario.nombre = nombre;
+      console.log(`${nombre} se ha registrado`);
+    });
 
-    socket.join('sala1')
+    // Entrar a una sala
+    socket.on('join', (sala: string) => {
+      const { nombre } = socket.data.usuario;
+      if (!nombre) return;
 
-    io.to('sala1').emit('evento', )
+      if (socket.data.usuario.sala) {
+        socket.leave(socket.data.usuario.sala);
+      }
+      socket.join(sala);
+      socket.data.usuario.sala = sala;
 
+      io.to(sala).emit('system', {
+        text: `${nombre} se ha unido a la sala ${sala}`,
+        ts: new Date().toISOString(),
+      });
+    });
+
+    // Enviar mensaje
+    socket.on('message', (mensaje: string) => {
+      const { nombre, sala } = socket.data.usuario;
+      if (!sala || !nombre) return;
+      const msg = { from: nombre, text: mensaje, ts: new Date().toISOString() };
+      io.to(sala).emit('message', msg);
+    });
+
+    // Salir de sala
+    socket.on('leave', () => {
+      const { nombre, sala } = socket.data.usuario;
+      if (!sala) return;
+      socket.leave(sala);
+      io.to(sala).emit('system', {
+        text: `${nombre} ha salido de la sala ${sala}`,
+        ts: new Date().toISOString(),
+      });
+      socket.data.usuario.sala = null;
+    });
+
+    // Cerrar sesión
+    socket.on('logout', () => {
+      const { nombre, sala } = socket.data.usuario;
+      if (sala) {
+        io.to(sala).emit('system', {
+          text: `${nombre} cerró sesión`,
+          ts: new Date().toISOString(),
+        });
+        socket.leave(sala);
+      }
+      socket.data.usuario = { nombre: null, sala: null };
+    });
+
+    // Desconexión
+    socket.on('disconnect', () => {
+      console.log('Alguien salió');
+      const { nombre, sala } = socket.data.usuario;
+      if (sala && nombre) {
+        io.to(sala).emit('system', {
+          text: `${nombre} se desconectó`,
+          ts: new Date().toISOString(),
+        });
+      }
+    });
   });
 
 }).catch(() => {
