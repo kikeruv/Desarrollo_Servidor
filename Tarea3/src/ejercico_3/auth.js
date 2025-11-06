@@ -1,13 +1,18 @@
 import jwt from 'jsonwebtoken';
 
+/**
+ * Middleware de autenticación.
+ * Espera header: Authorization: Bearer <token>
+ * Valida con JWT_SECRET (o 'testsecret' en pruebas) y coloca el payload en req.user
+ */
 export function auth(req, res, next) {
   try {
-    const header = req.headers['authorization'];
-    if (!header) {
+    const authHeader = req.headers?.authorization;
+    if (!authHeader) {
       return res.status(401).json({ error: 'Token requerido' });
     }
-    
-    const [scheme, token] = header.split(' ');
+
+    const [scheme, token] = authHeader.split(' ');
     if (scheme !== 'Bearer' || !token) {
       return res.status(401).json({ error: 'Formato de token inválido' });
     }
@@ -20,3 +25,5 @@ export function auth(req, res, next) {
     return res.status(401).json({ error: 'Token inválido' });
   }
 }
+
+export default { auth };

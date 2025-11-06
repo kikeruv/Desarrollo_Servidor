@@ -1,5 +1,5 @@
 import express from 'express';
-import { authMiddleware } from './middleware/auth.js';
+import { auth } from './ejercico_3/auth.js';
 
 const app = express();
 app.use(express.json());
@@ -8,9 +8,12 @@ app.get('/test', (req, res) => {
   return res.status(200).json({ mensaje: 'ok' });
 });
 // Endpoint protegido
-app.get('/admin', authMiddleware, (req, res) => {
+app.get('/admin', auth, (req, res) => {
   return res.status(200).json({ mensaje: 'ok' });
 });
+
+export default app
+
 // Arranca el server 
   const PORT = 3000;
   app.listen(PORT, () => console.log(`Servidor escuchando en puerto ${PORT}`));
