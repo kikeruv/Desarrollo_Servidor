@@ -8,3 +8,5 @@ La creación de la tarea se encuentra en el **index** de la carpeta **Clase** y 
 Dentro del archivo **chat.handlebars** se encuentran los estilos y los diferentes scripts para que funcione lo que se pide en la tarea.
 
 Para la revisión de esta tarea, se recomienda ingresar directamente a: **http://localhost:3001/chat**
+
+# Pruebas Unitarias: (Class Activite)

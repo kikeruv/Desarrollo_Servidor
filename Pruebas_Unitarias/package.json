@@ -1,0 +1,23 @@
+{
+  "name": "pruebas_unitarias",
+  "version": "1.0.0",
+  "description": "Proyecto con Jest, Supertest y Express usando ES Modules",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4",
+    "cross-env": "^7.0.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {}
+  }
+}
