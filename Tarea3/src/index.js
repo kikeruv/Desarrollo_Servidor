@@ -16,4 +16,4 @@ export default app
 
 // Arranca el server 
   const PORT = 3000;
-  app.listen(PORT, () => console.log(`Servidor escuchando en puerto ${PORT}`));
+  app.listen(PORT, () => console.log(`API is working in http://localhost:${PORT}`));
