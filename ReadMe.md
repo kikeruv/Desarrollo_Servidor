@@ -34,7 +34,7 @@ También se prueba que:
 - Se llame `next()` correctamente en el middleware  
 Las pruebas están en `authMiddleware.test.js`.
 
-### ⚙️ Cómo correr el proyecto
+### Cómo correr el proyecto
 1. Instalar dependencias:
    npm install  
 2. Ejecutar todas las pruebas:
