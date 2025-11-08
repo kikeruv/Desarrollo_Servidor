@@ -42,3 +42,42 @@ Las pruebas están en `authMiddleware.test.js`.
 3. Levantar el servidor manualmente (opcional):
    npm start  
    Por defecto corre en el puerto **3000** y sirve para probar `/test` y `/admin` manualmente.
+
+# Tarea 4 Mini Chat en tiempo real:
+Este proyecto es una aplicación sencilla de chat en tiempo real que permite a varios usuarios conectarse, 
+enviar mensajes y ver cuándo otros usuarios se unen al chat.
+
+Cuenta con un pequeño detalle que no logré resolver:  
+al presionar el botón **"Enviar"**, se debe hacer clic dos veces para que el mensaje se muestre en el propio chat, mientras que en el otro usuario aparece con un solo clic (y viceversa).
+
+## Cómo ejecutar
+
+### Servidor (backend)
+1. Ir a la carpeta del servidor.  
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+3. Ejecutar el servidor:
+   ```bash
+   npm run dev
+   ```
+4. El servidor se ejecuta en  
+   **http://localhost:3000**
+
+---
+
+### Cliente (frontend Angular)
+1. Ir a la carpeta del proyecto Angular.  
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+3. Iniciar la aplicación:
+   ```bash
+   ng serve
+   ```
+4. Abrir en el navegador:  
+   **http://localhost:4200**
+
+---

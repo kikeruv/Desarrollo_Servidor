@@ -1,0 +1,35 @@
+<div class="chat">
+  <header>
+    <h2>Chat</h2>
+    <span class="me">Conectado como: <strong>{{ me }}</strong></span>
+  </header>
+
+  @if (notices.length > 0) {
+    <section class="notices">
+      @for (n of notices; track n) {
+        <div class="notice">{{ n }}</div>
+      }
+    </section>
+  }
+
+  <section class="messages">
+    @for (m of messages; track m) {
+      <div class="msg" [class.mine]="m.user === me">
+        <div class="meta">
+          <b>{{ m.user }}</b>
+          <small>{{ m.at | date:'shortTime' }}</small>
+        </div>
+        <div class="text">{{ m.text }}</div>
+      </div>
+    }
+  </section>
+
+  <footer>
+    <input
+      type="text"
+      placeholder="Escribe un mensaje..."
+      [(ngModel)]="text"
+      (keyup.enter)="send()" />
+    <button (click)="send()">Enviar</button>
+  </footer>
+</div>

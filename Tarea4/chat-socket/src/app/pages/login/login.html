@@ -1,0 +1,10 @@
+<div class="login">
+  <h1>Entrar al chat</h1>
+  <input
+    type="text"
+    placeholder="Tu nombre"
+    [(ngModel)]="username"
+    (keyup.enter)="enter()"
+  />
+  <button (click)="enter()">Entrar</button>
+</div>
