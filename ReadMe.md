@@ -51,7 +51,6 @@ Cuenta con un pequeño detalle que no logré resolver:
 al presionar el botón **"Enviar"**, se debe hacer clic dos veces para que el mensaje se muestre en el propio chat, mientras que en el otro usuario aparece con un solo clic (y viceversa).
 
 ## Cómo ejecutar
-
 ### Servidor (backend)
 1. Ir a la carpeta del servidor.  
 2. Instalar dependencias:
